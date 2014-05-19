@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DFDA3892-9579-4982-BB08-DD52FFDDD87A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HDebuggerCore</RootNamespace>
+    <AssemblyName>HDebuggerCore</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="NativeAPI\Constants.cs" />
+    <Compile Include="NativeAPI\CorDebugChainReason.cs" />
+    <Compile Include="NativeAPI\CorDebugCreateProcessFlags.cs" />
+    <Compile Include="NativeAPI\CorDebugExceptionCallbackType.cs" />
+    <Compile Include="NativeAPI\CorDebugExceptionFlags.cs" />
+    <Compile Include="NativeAPI\CorDebugExceptionUnwindCallbackType.cs" />
+    <Compile Include="NativeAPI\CorDebugIntercept.cs" />
+    <Compile Include="NativeAPI\CorDebugInterfaceVersion.cs" />
+    <Compile Include="NativeAPI\CorDebugMDAFlags.cs" />
+    <Compile Include="NativeAPI\CorDebugStepReason.cs" />
+    <Compile Include="NativeAPI\CorDebugThreadState.cs" />
+    <Compile Include="NativeAPI\CorDebugUnmappedStop.cs" />
+    <Compile Include="NativeAPI\CorDebugUserState.cs" />
+    <Compile Include="NativeAPI\CorElementType.cs" />
+    <Compile Include="NativeAPI\COR_DEBUG_IL_TO_NATIVE_MAP.cs" />
+    <Compile Include="NativeAPI\COR_DEBUG_STEP_RANGE.cs" />
+    <Compile Include="NativeAPI\HRESULT.cs" />
+    <Compile Include="NativeAPI\ICLRMetaHost.cs" />
+    <Compile Include="NativeAPI\ICLRRuntimeInfo.cs" />
+    <Compile Include="NativeAPI\ICorDebug.cs" />
+    <Compile Include="NativeAPI\ICorDebugAppDomain.cs" />
+    <Compile Include="NativeAPI\ICorDebugAppDomainEnum.cs" />
+    <Compile Include="NativeAPI\ICorDebugAssembly.cs" />
+    <Compile Include="NativeAPI\ICorDebugAssemblyEnum.cs" />
+    <Compile Include="NativeAPI\ICorDebugBreakpoint.cs" />
+    <Compile Include="NativeAPI\ICorDebugBreakpointEnum.cs" />
+    <Compile Include="NativeAPI\ICorDebugChainEnum.cs" />
+    <Compile Include="NativeAPI\ICorDebugController.cs" />
+    <Compile Include="NativeAPI\ICorDebugEval.cs" />
+    <Compile Include="NativeAPI\ICorDebugFunctionBreakpoint.cs" />
+    <Compile Include="NativeAPI\ICorDebugChain.cs" />
+    <Compile Include="NativeAPI\ICorDebugClass.cs" />
+    <Compile Include="NativeAPI\ICorDebugCode.cs" />
+    <Compile Include="NativeAPI\ICorDebugContext.cs" />
+    <Compile Include="NativeAPI\ICorDebugEnum.cs" />
+    <Compile Include="NativeAPI\ICorDebugFrame.cs" />
+    <Compile Include="NativeAPI\ICorDebugFrameEnum.cs" />
+    <Compile Include="NativeAPI\ICorDebugFunction.cs" />
+    <Compile Include="NativeAPI\ICorDebugManagedCallback.cs" />
+    <Compile Include="NativeAPI\ICorDebugManagedCallback2.cs" />
+    <Compile Include="NativeAPI\ICorDebugMDA.cs" />
+    <Compile Include="NativeAPI\ICorDebugModule.cs" />
+    <Compile Include="NativeAPI\ICorDebugModuleBreakpoint.cs" />
+    <Compile Include="NativeAPI\ICorDebugModuleEnum.cs" />
+    <Compile Include="NativeAPI\ICorDebugObjectEnum.cs" />
+    <Compile Include="NativeAPI\ICorDebugObjectValue.cs" />
+    <Compile Include="NativeAPI\ICorDebugProcess.cs" />
+    <Compile Include="NativeAPI\ICorDebugProcessEnum.cs" />
+    <Compile Include="NativeAPI\ICorDebugRegisterSet.cs" />
+    <Compile Include="NativeAPI\ICorDebugStepper.cs" />
+    <Compile Include="NativeAPI\ICorDebugStepperEnum.cs" />
+    <Compile Include="NativeAPI\ICorDebugThread.cs" />
+    <Compile Include="NativeAPI\ICorDebugThreadEnum.cs" />
+    <Compile Include="NativeAPI\ICorDebugUnmanagedCallback.cs" />
+    <Compile Include="NativeAPI\ICorDebugValue.cs" />
+    <Compile Include="NativeAPI\ICorDebugValueBreakpoint.cs" />
+    <Compile Include="NativeAPI\IEnumUnknown.cs" />
+    <Compile Include="NativeAPI\LogSwitchCallReason.cs" />
+    <Compile Include="NativeAPI\NativeMethods.cs" />
+    <Compile Include="NativeAPI\ProcessCreationFlags.cs" />
+    <Compile Include="NativeAPI\PROCESS_INFORMATION.cs" />
+    <Compile Include="NativeAPI\SECURITY_ATTRIBUTES.cs" />
+    <Compile Include="NativeAPI\STARTUPINFO.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Wrappers\CorDebugManagedCallbackBase.cs" />
+    <Compile Include="Wrappers\WrapperHelper.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
