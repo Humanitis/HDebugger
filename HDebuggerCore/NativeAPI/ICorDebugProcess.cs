@@ -6,7 +6,6 @@
     using System.Security;
 
 
-
     /// <summary>
     /// 
     /// </summary>
@@ -14,7 +13,7 @@
     [SecurityCritical]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("3d6f5f64-7538-11d3-8d5b-00104b35e7ef")]
-    public interface ICorDebugProcess :  ICorDebugController
+    public interface ICorDebugProcess : ICorDebugController
     {
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         [return: MarshalAs(UnmanagedType.U4)]

@@ -15,6 +15,29 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <typeparam name="TInterface"></typeparam>
+        /// <param name="iUnknown"></param>
+        /// <returns></returns>
+        public static TInterface Cast<TInterface>(object iUnknown) where TInterface : class
+        {
+            IntPtr iUnknownPtr = Marshal.GetIUnknownForObject(iUnknown);
+            Guid iid = typeof(TInterface).GUID;
+            IntPtr resultPtr;
+
+            if (Marshal.QueryInterface(iUnknownPtr, ref iid, out resultPtr) == (int)HRESULT.S_OK)
+            {
+                return (TInterface)Marshal.GetTypedObjectForIUnknown(resultPtr, typeof(TInterface));
+            }
+            else
+            {
+                throw new InvalidCastException("Fail to cast interface {0}", typeof(TInterface));
+            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <typeparam name="TType"></typeparam>
         /// <param name="clsid"></param>
         /// <param name="riid"></param>
