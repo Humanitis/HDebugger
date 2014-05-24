@@ -112,14 +112,18 @@
     <Compile Include="NativeAPI\SECURITY_ATTRIBUTES.cs" />
     <Compile Include="NativeAPI\STARTUPINFO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Wrappers\CorDebug.cs" />
     <Compile Include="Wrappers\CorDebugAppDomain.cs" />
     <Compile Include="Wrappers\CorDebugThread.cs" />
     <Compile Include="Wrappers\DebugManagedCallbackTypes\CorDebugManagedCallbackBase.cs" />
     <Compile Include="Wrappers\DebugManagedCallbackTypes\CorDebugManagedCallbackEvents.cs" />
     <Compile Include="Wrappers\CorDebugProcess.cs" />
     <Compile Include="Wrappers\DebugManagedCallbackTypes\Events\CorDebugAppDomainEventArgs.cs" />
+    <Compile Include="Wrappers\DebugManagedCallbackTypes\Events\CorDebugBreakpointEventArgs.cs" />
+    <Compile Include="Wrappers\DebugManagedCallbackTypes\Events\CorDebugConnectionEventArgs.cs" />
     <Compile Include="Wrappers\DebugManagedCallbackTypes\Events\CorDebugEventArgs.cs" />
     <Compile Include="Wrappers\DebugManagedCallbackTypes\Events\CorDebugManagedCallbackHandler.cs" />
+    <Compile Include="Wrappers\DebugManagedCallbackTypes\Events\CorDebugProcessEventArgs.cs" />
     <Compile Include="Wrappers\DebugManagedCallbackTypes\Events\CorDebugThreadEventArgs.cs" />
     <Compile Include="Wrappers\WrapperHelper.cs" />
   </ItemGroup>

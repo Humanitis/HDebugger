@@ -8,7 +8,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public class CorDebugAppDomainEventArgs:CorDebugEventArgs
+    public class CorDebugAppDomainEventArgs : CorDebugProcessEventArgs
     {
         #region Fields
         private readonly CorDebugAppDomain _appDomain;
@@ -21,22 +21,39 @@
 
 
         #region Constructors
-        private CorDebugAppDomainEventArgs() 
-        { 
-        }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="appDomain"></param>
         public CorDebugAppDomainEventArgs(ICorDebugAppDomain appDomain)
-            :this(new CorDebugAppDomain(appDomain))
+            : this(appDomain.GetProcess(),appDomain)
+        {
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="process"></param>
+        /// <param name="appDomain"></param>
+        public CorDebugAppDomainEventArgs(ICorDebugProcess process,ICorDebugAppDomain appDomain)
+            : this(new CorDebugProcess(process),new CorDebugAppDomain(appDomain))
         {
         }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="appDomain"></param>
-        public CorDebugAppDomainEventArgs(CorDebugAppDomain appDomain) {
+        public CorDebugAppDomainEventArgs(CorDebugAppDomain appDomain)
+            : this(new CorDebugProcess(appDomain.NativeCorDebugAppDomain.GetProcess()), appDomain)
+        {
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="process"></param>
+        /// <param name="appDomain"></param>
+        public CorDebugAppDomainEventArgs(CorDebugProcess process, CorDebugAppDomain appDomain)
+            : base(process)
+        {
             this._appDomain = appDomain;
         }
         #endregion
@@ -52,7 +69,8 @@
         /// <summary>
         /// 
         /// </summary>
-        public CorDebugAppDomain AppDomain {
+        public CorDebugAppDomain AppDomain
+        {
             get { return this._appDomain; }
         }
         #endregion

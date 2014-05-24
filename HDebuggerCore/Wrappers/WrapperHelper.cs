@@ -30,7 +30,7 @@
             }
             else
             {
-                throw new InvalidCastException("Fail to cast interface {0}", typeof(TInterface));
+                throw new InvalidCastException(String.Format("Fail to cast interface {0}", typeof(TInterface)));
             }
         }
 

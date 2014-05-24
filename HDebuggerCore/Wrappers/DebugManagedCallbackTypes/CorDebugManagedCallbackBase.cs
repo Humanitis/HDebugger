@@ -16,7 +16,7 @@
         /// <param name="appDomain"></param>
         /// <param name="thread"></param>
         /// <param name="breakpoint"></param>
-        protected virtual void Breakpoint(ICorDebugAppDomain appDomain, ICorDebugThread thread, ICorDebugBreakpoint breakpoint)
+        public virtual void Breakpoint(ICorDebugAppDomain appDomain, ICorDebugThread thread, ICorDebugBreakpoint breakpoint)
         {
             appDomain.Continue(false);
         }
@@ -29,7 +29,7 @@
         /// <param name="thread"></param>
         /// <param name="stepper"></param>
         /// <param name="reason"></param>
-        protected virtual void StepComplete(ICorDebugAppDomain appDomain, ICorDebugThread thread, ICorDebugStepper stepper, CorDebugStepReason reason)
+        public virtual void StepComplete(ICorDebugAppDomain appDomain, ICorDebugThread thread, ICorDebugStepper stepper, CorDebugStepReason reason)
         {
             appDomain.Continue(false);
         }
@@ -40,7 +40,7 @@
         /// </summary>
         /// <param name="appDomain"></param>
         /// <param name="thread"></param>
-        protected virtual void Break(ICorDebugAppDomain appDomain, ICorDebugThread thread)
+        public virtual void Break(ICorDebugAppDomain appDomain, ICorDebugThread thread)
         {
             appDomain.Continue(false);
         }
@@ -52,7 +52,7 @@
         /// <param name="appDomain"></param>
         /// <param name="thread"></param>
         /// <param name="unhandled"></param>
-        protected virtual void Exception(ICorDebugAppDomain appDomain, ICorDebugThread thread, bool unhandled)
+        public virtual void Exception(ICorDebugAppDomain appDomain, ICorDebugThread thread, bool unhandled)
         {
             appDomain.Continue(false);
         }
@@ -64,7 +64,7 @@
         /// <param name="appDomain"></param>
         /// <param name="thread"></param>
         /// <param name="eval"></param>
-        protected virtual void EvalComplete(ICorDebugAppDomain appDomain, ICorDebugThread thread, ICorDebugEval eval)
+        public virtual void EvalComplete(ICorDebugAppDomain appDomain, ICorDebugThread thread, ICorDebugEval eval)
         {
             appDomain.Continue(false);
         }
@@ -76,7 +76,7 @@
         /// <param name="appDomain"></param>
         /// <param name="thread"></param>
         /// <param name="eval"></param>
-        protected virtual void EvalException(ICorDebugAppDomain appDomain, ICorDebugThread thread, ICorDebugEval eval)
+        public virtual void EvalException(ICorDebugAppDomain appDomain, ICorDebugThread thread, ICorDebugEval eval)
         {
             appDomain.Continue(false);
         }
@@ -86,7 +86,7 @@
         /// 
         /// </summary>
         /// <param name="process"></param>
-        protected virtual void CreateProcess(ICorDebugProcess process)
+        public virtual void CreateProcess(ICorDebugProcess process)
         {
             process.Continue(false);
         }
@@ -96,7 +96,7 @@
         /// 
         /// </summary>
         /// <param name="process"></param>
-        protected virtual void ExitProcess(ICorDebugProcess process)
+        public virtual void ExitProcess(ICorDebugProcess process)
         {
             process.Continue(false);
         }
@@ -107,7 +107,7 @@
         /// </summary>
         /// <param name="appDomain"></param>
         /// <param name="thread"></param>
-        protected virtual void CreateThread(ICorDebugAppDomain appDomain, ICorDebugThread thread)
+        public virtual void CreateThread(ICorDebugAppDomain appDomain, ICorDebugThread thread)
         {
             appDomain.Continue(false);
         }
@@ -118,7 +118,7 @@
         /// </summary>
         /// <param name="appDomain"></param>
         /// <param name="thread"></param>
-        protected virtual void ExitThread(ICorDebugAppDomain appDomain, ICorDebugThread thread)
+        public virtual void ExitThread(ICorDebugAppDomain appDomain, ICorDebugThread thread)
         {        
             appDomain.Continue(false);
         }
@@ -129,7 +129,7 @@
         /// </summary>
         /// <param name="appDomain"></param>
         /// <param name="module"></param>
-        protected virtual void LoadModule(ICorDebugAppDomain appDomain, ICorDebugModule module)
+        public virtual void LoadModule(ICorDebugAppDomain appDomain, ICorDebugModule module)
         {
             appDomain.Continue(false);
         }
@@ -140,7 +140,7 @@
         /// </summary>
         /// <param name="appDomain"></param>
         /// <param name="module"></param>
-        protected virtual void UnloadModule(ICorDebugAppDomain appDomain, ICorDebugModule module)
+        public virtual void UnloadModule(ICorDebugAppDomain appDomain, ICorDebugModule module)
         {
             appDomain.Continue(false);
         }
@@ -151,7 +151,7 @@
         /// </summary>
         /// <param name="appDomain"></param>
         /// <param name="class"></param>
-        protected virtual void LoadClass(ICorDebugAppDomain appDomain, ICorDebugClass @class)
+        public virtual void LoadClass(ICorDebugAppDomain appDomain, ICorDebugClass @class)
         {
             appDomain.Continue(false);
         }
@@ -162,7 +162,7 @@
         /// </summary>
         /// <param name="appDomain"></param>
         /// <param name="class"></param>
-        protected virtual void UnloadClass(ICorDebugAppDomain appDomain, ICorDebugClass @class)
+        public virtual void UnloadClass(ICorDebugAppDomain appDomain, ICorDebugClass @class)
         {
             appDomain.Continue(false);
         }
@@ -174,7 +174,7 @@
         /// <param name="process"></param>
         /// <param name="errorHR"></param>
         /// <param name="errorCode"></param>
-        protected virtual void DebuggerError(ICorDebugProcess process, ulong errorHR, int errorCode)
+        public virtual void DebuggerError(ICorDebugProcess process, ulong errorHR, int errorCode)
         {
             process.Continue(false);
         }
@@ -188,7 +188,7 @@
         /// <param name="level"></param>
         /// <param name="logSwitchName"></param>
         /// <param name="message"></param>
-        protected virtual void LogMessage(ICorDebugAppDomain appDomain, ICorDebugThread thread, int level, string logSwitchName, string message)
+        public virtual void LogMessage(ICorDebugAppDomain appDomain, ICorDebugThread thread, int level, string logSwitchName, string message)
         {
             appDomain.Continue(false);
         }
@@ -203,7 +203,7 @@
         /// <param name="reason"></param>
         /// <param name="logSwitchName"></param>
         /// <param name="parentName"></param>
-        protected virtual void LogSwitch(ICorDebugAppDomain appDomain, ICorDebugThread thread, int level, LogSwitchCallReason reason, string logSwitchName, string parentName)
+        public virtual void LogSwitch(ICorDebugAppDomain appDomain, ICorDebugThread thread, int level, LogSwitchCallReason reason, string logSwitchName, string parentName)
         {
             appDomain.Continue(false);
         }
@@ -214,7 +214,7 @@
         /// </summary>
         /// <param name="process"></param>
         /// <param name="appDomain"></param>
-        protected virtual void CreateAppDomain(ICorDebugProcess process, ICorDebugAppDomain appDomain)
+        public virtual void CreateAppDomain(ICorDebugProcess process, ICorDebugAppDomain appDomain)
         {
             appDomain.Continue(false);
         }
@@ -225,7 +225,7 @@
         /// </summary>
         /// <param name="process"></param>
         /// <param name="appDomain"></param>
-        protected virtual void ExitAppDomain(ICorDebugProcess process, ICorDebugAppDomain appDomain)
+        public virtual void ExitAppDomain(ICorDebugProcess process, ICorDebugAppDomain appDomain)
         {
             appDomain.Continue(false);
         }
@@ -236,7 +236,7 @@
         /// </summary>
         /// <param name="appDomain"></param>
         /// <param name="assembly"></param>
-        protected virtual void LoadAssembly(ICorDebugAppDomain appDomain, ICorDebugAssembly assembly)
+        public virtual void LoadAssembly(ICorDebugAppDomain appDomain, ICorDebugAssembly assembly)
         {
             appDomain.Continue(false);
         }
@@ -247,7 +247,7 @@
         /// </summary>
         /// <param name="appDomain"></param>
         /// <param name="assembly"></param>
-        protected virtual void UnloadAssembly(ICorDebugAppDomain appDomain, ICorDebugAssembly assembly)
+        public virtual void UnloadAssembly(ICorDebugAppDomain appDomain, ICorDebugAssembly assembly)
         {
             appDomain.Continue(false);
         }
@@ -257,7 +257,7 @@
         /// 
         /// </summary>
         /// <param name="process"></param>
-        protected virtual void ControlCTrap(ICorDebugProcess process)
+        public virtual void ControlCTrap(ICorDebugProcess process)
         {
             process.Continue(false);
         }
@@ -268,7 +268,7 @@
         /// </summary>
         /// <param name="appDomain"></param>
         /// <param name="thread"></param>
-        protected virtual void NameChange(ICorDebugAppDomain appDomain, ICorDebugThread thread)
+        public virtual void NameChange(ICorDebugAppDomain appDomain, ICorDebugThread thread)
         {
             appDomain.Continue(false);
         }
@@ -280,7 +280,7 @@
         /// <param name="appDomain"></param>
         /// <param name="module"></param>
         /// <param name="symbolStream"></param>
-        protected virtual void UpdateModuleSymbols(ICorDebugAppDomain appDomain, ICorDebugModule module, System.Runtime.InteropServices.ComTypes.IStream symbolStream)
+        public virtual void UpdateModuleSymbols(ICorDebugAppDomain appDomain, ICorDebugModule module, System.Runtime.InteropServices.ComTypes.IStream symbolStream)
         {
             appDomain.Continue(false);
         }
@@ -293,7 +293,7 @@
         /// <param name="thread"></param>
         /// <param name="function"></param>
         /// <param name="accurate"></param>
-        protected virtual void EditAndContinueRemap(ICorDebugAppDomain appDomain, ICorDebugThread thread, ICorDebugFunction function, bool accurate)
+        public virtual void EditAndContinueRemap(ICorDebugAppDomain appDomain, ICorDebugThread thread, ICorDebugFunction function, bool accurate)
         {
             appDomain.Continue(false);
         }
@@ -305,8 +305,8 @@
         /// <param name="appDomain"></param>
         /// <param name="thread"></param>
         /// <param name="breakpoint"></param>
-        /// <param name="dwError"></param>
-        protected virtual void BreakpointSetError(ICorDebugAppDomain appDomain, ICorDebugThread thread, ICorDebugBreakpoint breakpoint, int dwError)
+        /// <param name="error"></param>
+        public virtual void BreakpointSetError(ICorDebugAppDomain appDomain, ICorDebugThread thread, ICorDebugBreakpoint breakpoint, int error)
         {
             appDomain.Continue(false);
         }
@@ -331,7 +331,7 @@
         /// <param name="oldFunction"></param>
         /// <param name="newFunction"></param>
         /// <param name="oldILOffset"></param>
-        protected virtual void FunctionRemapOpportunity(ICorDebugAppDomain appDomain, ICorDebugThread thread, ICorDebugFunction oldFunction, ICorDebugFunction newFunction, uint oldILOffset)
+        public virtual void FunctionRemapOpportunity(ICorDebugAppDomain appDomain, ICorDebugThread thread, ICorDebugFunction oldFunction, ICorDebugFunction newFunction, uint oldILOffset)
         {
             appDomain.Continue(false);
         }
@@ -343,7 +343,7 @@
         /// <param name="process"></param>
         /// <param name="connectionId"></param>
         /// <param name="connName"></param>
-        protected virtual void CreateConnection(ICorDebugProcess process, uint connectionId, string connName)
+        public virtual void CreateConnection(ICorDebugProcess process, uint connectionId, string connName)
         {
             process.Continue(false);
         }
@@ -354,7 +354,7 @@
         /// </summary>
         /// <param name="process"></param>
         /// <param name="connectionId"></param>
-        protected virtual void ChangeConnection(ICorDebugProcess process, uint connectionId)
+        public virtual void ChangeConnection(ICorDebugProcess process, uint connectionId)
         {
             process.Continue(false);
         }
@@ -365,7 +365,7 @@
         /// </summary>
         /// <param name="process"></param>
         /// <param name="connectionId"></param>
-        protected virtual void DestroyConnection(ICorDebugProcess process, uint connectionId)
+        public virtual void DestroyConnection(ICorDebugProcess process, uint connectionId)
         {
             process.Continue(false);
         }
@@ -380,7 +380,7 @@
         /// <param name="offset"></param>
         /// <param name="dwEventType"></param>
         /// <param name="dwFlags"></param>
-        protected virtual void Exception(ICorDebugAppDomain appDomain, ICorDebugThread thread, ICorDebugFrame frame, uint offset, CorDebugExceptionCallbackType dwEventType, CorDebugExceptionFlags dwFlags)
+        public virtual void Exception(ICorDebugAppDomain appDomain, ICorDebugThread thread, ICorDebugFrame frame, uint offset, CorDebugExceptionCallbackType dwEventType, CorDebugExceptionFlags dwFlags)
         {
             appDomain.Continue(false);
         }
@@ -393,7 +393,7 @@
         /// <param name="thread"></param>
         /// <param name="eventType"></param>
         /// <param name="dwFlags"></param>
-        protected virtual void ExceptionUnwind(ICorDebugAppDomain appDomain, ICorDebugThread thread, CorDebugExceptionUnwindCallbackType eventType, CorDebugExceptionFlags dwFlags)
+        public virtual void ExceptionUnwind(ICorDebugAppDomain appDomain, ICorDebugThread thread, CorDebugExceptionUnwindCallbackType eventType, CorDebugExceptionFlags dwFlags)
         {
             appDomain.Continue(false);
         }
@@ -405,7 +405,7 @@
         /// <param name="appDomain"></param>
         /// <param name="thread"></param>
         /// <param name="function"></param>
-        protected virtual void FunctionRemapComplete(ICorDebugAppDomain appDomain, ICorDebugThread thread, ICorDebugFunction function)
+        public virtual void FunctionRemapComplete(ICorDebugAppDomain appDomain, ICorDebugThread thread, ICorDebugFunction function)
         {
             appDomain.Continue(false);
         }
@@ -417,7 +417,7 @@
         /// <param name="controller"></param>
         /// <param name="thread"></param>
         /// <param name="MDA"></param>
-        protected virtual void MDANotification(ICorDebugController controller, ICorDebugThread thread, ICorDebugMDA MDA)
+        public virtual void MDANotification(ICorDebugController controller, ICorDebugThread thread, ICorDebugMDA MDA)
         {
             controller.Continue(false);
         }
@@ -436,7 +436,7 @@
         /// </summary>
         /// <param name="thread"></param>
         /// <param name="appDomain"></param>
-        protected void CustomNotification(ICorDebugThread thread, ICorDebugAppDomain appDomain)
+        public virtual void CustomNotification(ICorDebugThread thread, ICorDebugAppDomain appDomain)
         {
             appDomain.Continue(false);
         }

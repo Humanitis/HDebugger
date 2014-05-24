@@ -11,7 +11,7 @@
     /// </summary>
     public class CorDebugThreadEventArgs : CorDebugAppDomainEventArgs
     {
-                #region Fields
+        #region Fields
         private readonly CorDebugThread _thread;
         #endregion
 
@@ -27,8 +27,8 @@
         /// </summary>
         /// <param name="appDomain"></param>
         /// <param name="thread"></param>
-        public CorDebugThreadEventArgs(ICorDebugAppDomain appDomain,ICorDebugThread thread)
-            :this(new CorDebugAppDomain(appDomain),new CorDebugThread(thread))
+        public CorDebugThreadEventArgs(ICorDebugProcess process, ICorDebugAppDomain appDomain, ICorDebugThread thread)
+            : this(new CorDebugProcess(process), new CorDebugAppDomain(appDomain), new CorDebugThread(thread))
         {
         }
         /// <summary>
@@ -36,8 +36,8 @@
         /// </summary>
         /// <param name="appDomain"></param>
         /// <param name="thread"></param>
-        public CorDebugThreadEventArgs(CorDebugAppDomain appDomain,CorDebugThread thread)
-            :base(appDomain)
+        public CorDebugThreadEventArgs(CorDebugProcess process, CorDebugAppDomain appDomain, CorDebugThread thread)
+            : base(process, appDomain)
         {
             this._thread = thread;
         }

@@ -160,6 +160,6 @@
             [In,MarshalAs(UnmanagedType.Interface)] ICorDebugAppDomain appDomain,
             [In,MarshalAs(UnmanagedType.Interface)] ICorDebugThread thread,
             [In,MarshalAs(UnmanagedType.Interface)] ICorDebugBreakpoint breakpoint,
-            [In,MarshalAs(UnmanagedType.I4)] int dwError);
+            [In,MarshalAs(UnmanagedType.I4)] int error);
     }
 }

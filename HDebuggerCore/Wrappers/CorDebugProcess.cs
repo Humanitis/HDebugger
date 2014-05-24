@@ -16,7 +16,7 @@
     {
         #region Fields
         private readonly ICorDebugProcess _comCorDebugProcess;
-        private readonly ICorDebugProcess2 _comCorDebugProcess2;
+        private readonly Lazy<ICorDebugProcess2> _comCorDebugProcess2;
         #endregion
 
 
@@ -38,7 +38,7 @@
             Debug.Assert(comCorDebugProcess!=null,"comCorDebugProcess is null");
 
             this._comCorDebugProcess = comCorDebugProcess;
-            this._comCorDebugProcess2 = WrapperHelper.Cast<ICorDebugProcess2>(comCorDebugProcess);
+            this._comCorDebugProcess2 = new Lazy<ICorDebugProcess2>(() => WrapperHelper.Cast<ICorDebugProcess2>(this._comCorDebugProcess));
         }
         #endregion
 
@@ -61,7 +61,7 @@
         /// </summary>
         public ICorDebugProcess2 NativeCorDebugProcess2
         {
-            get { return this._comCorDebugProcess2; }
+            get { return this._comCorDebugProcess2.Value; }
         }
         #endregion
 
@@ -72,14 +72,6 @@
 
 
         #region Methods
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="process"></param>
-        /// <returns></returns>
-        public static CorDebugProcess GetDebugProcessFor(Process process) { 
-        
-        }
         #endregion
 
     }
