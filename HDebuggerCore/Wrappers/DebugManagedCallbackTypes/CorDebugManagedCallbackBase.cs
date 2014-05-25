@@ -378,9 +378,9 @@
         /// <param name="thread"></param>
         /// <param name="frame"></param>
         /// <param name="offset"></param>
-        /// <param name="dwEventType"></param>
-        /// <param name="dwFlags"></param>
-        public virtual void Exception(ICorDebugAppDomain appDomain, ICorDebugThread thread, ICorDebugFrame frame, uint offset, CorDebugExceptionCallbackType dwEventType, CorDebugExceptionFlags dwFlags)
+        /// <param name="eventType"></param>
+        /// <param name="flags"></param>
+        public virtual void Exception(ICorDebugAppDomain appDomain, ICorDebugThread thread, ICorDebugFrame frame, uint offset, CorDebugExceptionCallbackType eventType, CorDebugExceptionFlags flags)
         {
             appDomain.Continue(false);
         }
@@ -392,8 +392,8 @@
         /// <param name="appDomain"></param>
         /// <param name="thread"></param>
         /// <param name="eventType"></param>
-        /// <param name="dwFlags"></param>
-        public virtual void ExceptionUnwind(ICorDebugAppDomain appDomain, ICorDebugThread thread, CorDebugExceptionUnwindCallbackType eventType, CorDebugExceptionFlags dwFlags)
+        /// <param name="flags"></param>
+        public virtual void ExceptionUnwind(ICorDebugAppDomain appDomain, ICorDebugThread thread, CorDebugExceptionUnwindCallbackType eventType, CorDebugExceptionFlags flags)
         {
             appDomain.Continue(false);
         }

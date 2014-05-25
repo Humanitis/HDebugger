@@ -25,6 +25,7 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="process"></param>
         /// <param name="appDomain"></param>
         /// <param name="thread"></param>
         public CorDebugThreadEventArgs(ICorDebugProcess process, ICorDebugAppDomain appDomain, ICorDebugThread thread)
@@ -34,6 +35,7 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="process"></param>
         /// <param name="appDomain"></param>
         /// <param name="thread"></param>
         public CorDebugThreadEventArgs(CorDebugProcess process, CorDebugAppDomain appDomain, CorDebugThread thread)

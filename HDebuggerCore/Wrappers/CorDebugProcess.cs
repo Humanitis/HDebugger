@@ -38,7 +38,7 @@
             Debug.Assert(comCorDebugProcess!=null,"comCorDebugProcess is null");
 
             this._comCorDebugProcess = comCorDebugProcess;
-            this._comCorDebugProcess2 = new Lazy<ICorDebugProcess2>(() => WrapperHelper.Cast<ICorDebugProcess2>(this._comCorDebugProcess));
+            this._comCorDebugProcess2 = new Lazy<ICorDebugProcess2>(() => WrapperHelper.Cast<ICorDebugProcess2>(this._comCorDebugProcess), true));
         }
         #endregion
 

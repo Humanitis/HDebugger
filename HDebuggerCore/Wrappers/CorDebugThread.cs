@@ -14,7 +14,7 @@
     {
         #region Fields
         private readonly ICorDebugThread _nativeCorDebugThread;
-        private readonly ICorDebugThread2 _nativeCorDebugThread2;
+        private readonly Lazy<ICorDebugThread2> _nativeCorDebugThread2;
         #endregion
 
 
@@ -39,7 +39,7 @@
             Debug.Assert(nativeCorDebugThread != null, "nativeCorDebugThread is null");
 
             this._nativeCorDebugThread = nativeCorDebugThread;
-            this._nativeCorDebugThread2 = WrapperHelper.Cast<ICorDebugThread2>(nativeCorDebugThread);
+            this._nativeCorDebugThread2 = new Lazy<ICorDebugThread2>(() => WrapperHelper.Cast<ICorDebugThread2>(this._nativeCorDebugThread), true));
         }
         #endregion
 
@@ -60,7 +60,7 @@
         /// </summary>
         public ICorDebugThread2 NativeCorDebugThread2
         {
-            get { return this._nativeCorDebugThread2; }
+            get { return this._nativeCorDebugThread2.Value; }
         }
         #endregion
     }

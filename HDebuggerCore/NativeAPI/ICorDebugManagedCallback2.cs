@@ -47,15 +47,15 @@
             [In, MarshalAs(UnmanagedType.Interface)] ICorDebugThread thread,
             [In, MarshalAs(UnmanagedType.Interface)] ICorDebugFrame frame,
             [In, MarshalAs(UnmanagedType.U4)]uint offset,
-            [In, MarshalAs(UnmanagedType.I4)] CorDebugExceptionCallbackType dwEventType,
-            [In, MarshalAs(UnmanagedType.I4)] CorDebugExceptionFlags dwFlags);
+            [In, MarshalAs(UnmanagedType.I4)] CorDebugExceptionCallbackType eventType,
+            [In, MarshalAs(UnmanagedType.I4)] CorDebugExceptionFlags flags);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void ExceptionUnwind(
             [In, MarshalAs(UnmanagedType.Interface)] ICorDebugAppDomain appDomain,
             [In, MarshalAs(UnmanagedType.Interface)] ICorDebugThread thread,
             [In, MarshalAs(UnmanagedType.I4)] CorDebugExceptionUnwindCallbackType eventType,
-            [In, MarshalAs(UnmanagedType.I4)] CorDebugExceptionFlags dwFlags);
+            [In, MarshalAs(UnmanagedType.I4)] CorDebugExceptionFlags flags);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void FunctionRemapComplete(
