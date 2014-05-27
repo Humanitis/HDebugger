@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E01D64BA-FABB-4E0E-A0D6-5B811633A3C7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HDisasm</RootNamespace>
+    <AssemblyName>HDisasm</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Extensions\ByteExtension.cs" />
+    <Compile Include="Extensions\ULongExtension.cs" />
+    <Compile Include="FileFormat\AFileStructure.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\AStreamHeap.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\FSMetaDataRoot.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\FSStreamHeader.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\SHBlob.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\SHGuid.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\SHStream.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\SHString.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\SHUserString.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\AssemblyFlag.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\AssemblyHashAlgorithm.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\AStreamTableRow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\ElementTypesFlag.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\EventAttributesFlag.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\FieldAttributesFlag.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\FileAttributesFlag.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\GenericParamAttributesFlag.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\HasConstantTag.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\HasCustomAttributeTag.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\HasDeclSecurity.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\HasFieldMarshallTag.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\HeapSizeFlag.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\ImplementationTag.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\ManifestResourceAttributesFlag.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\MemberForwardedTag.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\MethodAttributesFlag.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\PInvokeAttributesFlag.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\STAssemblyOSRow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\STAssemblyProcessorRow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\STAssemblyRefOSRow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\STAssemblyRefProcessorRow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\STAssemblyRefRow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\STAssemblyRow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\STClassLayoutRow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\STConstantRow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\STCustomAttributeRow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\STDeclSecurityRow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\STEventMapRow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\STEventRow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\STExportedTypeRow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\STFieldLayoutRow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\STFieldMarshalRow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\STFieldRow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\STFieldRVARow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\STFileRow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\STGenericParamConstraintRow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\STGenericParamRow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\STImplMapRow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\STInterfaceImplRow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\STManifestResourceRow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\STMemberRefRow.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\TypeAttributesFlag.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\TypeDefOrRefTag.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\TypeMetaDataTag.cs" />
+    <Compile Include="FileFormat\CLIData\MetaData\StreamTables\TypeOrMethodDefTag.cs" />
+    <Compile Include="FileFormat\CLIHeader\FSCLIHeader.cs" />
+    <Compile Include="FileFormat\FSHintNameTable.cs" />
+    <Compile Include="FileFormat\FSIAT.cs" />
+    <Compile Include="FileFormat\FSImportTable.cs" />
+    <Compile Include="FileFormat\FSPEFileFormat.cs" />
+    <Compile Include="FileFormat\FSRelocations.cs" />
+    <Compile Include="FileFormat\Helper.cs" />
+    <Compile Include="FileFormat\PairRVASize.cs" />
+    <Compile Include="FileFormat\PEHeader\FSMSDOSHeader.cs" />
+    <Compile Include="FileFormat\PEHeader\FSPEFileHeader.cs" />
+    <Compile Include="FileFormat\PEHeader\FSPEHeader.cs" />
+    <Compile Include="FileFormat\PEHeader\FSSectionHeader.cs" />
+    <Compile Include="FileFormat\PEHeader\PEOptionalHeader\FSPEHEaderDataDirectories.cs" />
+    <Compile Include="FileFormat\PEHeader\PEOptionalHeader\FSPEHeaderStandartFields.cs" />
+    <Compile Include="FileFormat\PEHeader\PEOptionalHeader\FSPEHeaderWindowsNTSpecificFields.cs" />
+    <Compile Include="FileFormat\PEHeader\PEOptionalHeader\FSPEOptionalHeader.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
