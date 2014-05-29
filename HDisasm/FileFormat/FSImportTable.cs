@@ -8,7 +8,7 @@
 using System;
 using PEFileFormat.Extensions;
 
-namespace PEFileFormat.FileFormat
+namespace PEFileFormat
 {
     public sealed class FSImportTable:AFileStructure
     {

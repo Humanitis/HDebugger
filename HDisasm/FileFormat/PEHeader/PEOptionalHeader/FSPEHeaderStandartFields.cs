@@ -44,41 +44,65 @@ namespace PEFileFormat
         private readonly uint _baseOfDataRVA;
         #endregion
 
+
+
+
+
+
+
+
+        #region Constructors
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="beginOffset"></param>
+        public FSPEHeaderStandartFields(byte[] reader, long beginOffset)
+            : base(reader)
+        {
+            this._magic = reader.getUShort(beginOffset + OFFSET_MAGIC);
+            Helper.CheckAlways(this._magic, ALWAYS_MAGIC, "Magic");
+            this._lmajor = reader[beginOffset + OFFSET_LMAJOR];
+            Helper.CheckAlways(this._lmajor, ALWAYS_LMAJOR, "LMajor");
+            this._lminor = reader[beginOffset + OFFSET_LMINOR];
+            Helper.CheckAlways(this._lminor, ALWAYS_LMINOR, "LMinor");
+            this._codeSize = reader.getUInt(beginOffset + OFFSET_CODE_SIZE);
+            this._initializedDataSize = reader.getUInt(beginOffset + OFFSET_INITIALIZED_DATA_SIZE);
+            this._uninitializedDataSize = reader.getUInt(beginOffset + OFFSET_UNINITIALIZED_DATA_SIZE);
+            this._entryPointRVA = reader.getUInt(beginOffset + OFFSET_ENTRY_POINT_RVA);
+            this._baseOfCodeRVA = reader.getUInt(beginOffset + OFFSET_BASE_OF_CODE);
+            this._baseOfDataRVA = reader.getUInt(beginOffset + OFFSET_BASE_OF_DATA);
+        }
+        #endregion
+
+
+
+
+
+
+
+
+        #region Properties
         /// <summary>
         /// Always 0x10B
         /// </summary>
         public ushort Magic
         {
-            get { return _magic; }
-            private set
-            {
-                Helper.CheckAlways(value, ALWAYS_MAGIC, "Magic");
-                _magic = value;
-            }
+            get { return this._magic; }
         }
         /// <summary>
         /// Always 6
         /// </summary>
         public byte LMajor
         {
-            get { return _lmajor; }
-            private set
-            {
-                //Helper.CheckAlways(value ,ALWAYS_LMAJOR,"LMajor");
-                _lmajor = value;
-            }
+            get { return this._lmajor; }
         }
         /// <summary>
         /// Always 0
         /// </summary>
         public byte LMinor
         {
-            get { return _lminor; }
-            private set
-            {
-                Helper.CheckAlways(value, ALWAYS_LMINOR, "LMinor");
-                _lminor = value;
-            }
+            get { return this._lminor; }
         }
         /// <summary>
         /// Size of the code (text) section, or the sum of all code sections
@@ -86,11 +110,7 @@ namespace PEFileFormat
         /// </summary>
         public uint CodeSize
         {
-            get { return _codeSize; }
-            private set
-            {
-                _codeSize = value;
-            }
+            get { return this._codeSize; }
         }
         /// <summary>
         /// Size of the initialized data section, or the sum of all such
@@ -98,11 +118,7 @@ namespace PEFileFormat
         /// </summary>
         public uint InitializedDataSize
         {
-            get { return _initializedDataSize; }
-            private set
-            {
-                _initializedDataSize = value;
-            }
+            get { return this._initializedDataSize; }
         }
         /// <summary>
         /// Size of the uninitialized data section, or the sum of all such
@@ -110,11 +126,7 @@ namespace PEFileFormat
         /// </summary>
         public uint UninitializedDataSize
         {
-            get { return _uninitializedDataSize; }
-            private set
-            {
-                _uninitializedDataSize = value;
-            }
+            get { return this._uninitializedDataSize; }
         }
         /// <summary>
         /// RVA of entry point , needs to point to bytes 0xFF 0x25
@@ -123,51 +135,22 @@ namespace PEFileFormat
         /// </summary>
         public uint EntryPointRVA
         {
-            get { return _entryPointRVA; }
-            private set
-            {
-                _entryPointRVA = value;
-            }
+            get { return this._entryPointRVA; }
         }
         /// <summary>
         /// RVA of the code section. (This is a hint to the loader.)
         /// </summary>
         public uint BaseOFCodeRVA
         {
-            get { return _baseOfCodeRVA; }
-            private set
-            {
-                _baseOfCodeRVA = value;
-            }
+            get { return this._baseOfCodeRVA; }
         }
         /// <summary>
         /// RVA of the data section. (This is a hint to the loader.)
         /// </summary>
         public uint BaseOFDataRVA
         {
-            get { return _baseOfDataRVA; }
-            private set
-            {
-                _baseOfDataRVA = value;
-            }
+            get { return this._baseOfDataRVA; }
         }
-
-        private FSPEHeaderStandartFields()
-        { }
-
-        public FSPEHeaderStandartFields(byte[] reader, ulong beginOffset, AFileFormatMediator mediator)
-            : base(reader, beginOffset, mediator)
-        {
-            Magic = reader.getUShort(BEGIN_OFFSET + OFFSET_MAGIC);
-            LMajor = reader[BEGIN_OFFSET + OFFSET_LMAJOR];
-            LMajor = reader[BEGIN_OFFSET + OFFSET_LMINOR];
-            CodeSize = reader.getUInt(BEGIN_OFFSET + OFFSET_CODE_SIZE);
-            InitializedDataSize = reader.getUInt(BEGIN_OFFSET + OFFSET_INITIALIZED_DATA_SIZE);
-            UninitializedDataSize = reader.getUInt(BEGIN_OFFSET + OFFSET_UNINITIALIZED_DATA_SIZE);
-            EntryPointRVA = reader.getUInt(BEGIN_OFFSET + OFFSET_ENTRY_POINT_RVA);
-            BaseOFCodeRVA = reader.getUInt(BEGIN_OFFSET + OFFSET_BASE_OF_CODE);
-            BaseOFDataRVA = reader.getUInt(BEGIN_OFFSET + OFFSET_BASE_OF_DATA);
-            END_OFFSET = BEGIN_OFFSET + OFFSET_BASE_OF_DATA + 4;
-        }
+        #endregion
     }
 }

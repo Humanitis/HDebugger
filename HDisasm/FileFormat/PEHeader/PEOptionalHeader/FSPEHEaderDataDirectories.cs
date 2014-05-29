@@ -3,75 +3,122 @@
 ///The optional header data directories give the address and size of several tables that appear in the sections of the
 ///PE file. Each data directory entry contains the RVA and Size of the structure it describes.
 #endregion
-using System;
-using PEFileFormat.Extensions;
-
-namespace PEFileFormat.FileFormat.PEHeader
+namespace PEFileFormat
 {
+    using System;
+
+
+
+
+
+
+    /// <summary>
+    /// 
+    /// </summary>
     public sealed class FSPEHEaderDataDirectories:AFileStructure
     {
-        private static readonly PairRVASize ALWAYS_EXPORT_TABLE = PairRVASize.Zero;
-        //private static readonly PairRVASize ALWAYS_IMPORT_TABLE = PairRVASize.Zero;
-        private static readonly PairRVASize ALWAYS_RESOURCE_TABLE = PairRVASize.Zero;
-        private static readonly PairRVASize ALWAYS_EXEPTION_TABLE = PairRVASize.Zero;
-        private static readonly PairRVASize ALWAYS_CERTIFICATE_TABLE = PairRVASize.Zero;
-        //private static readonly PairRVASize ALWAYS_BASE_RELOCATION_TABLE = PairRVASize.Zero;
-        private static readonly PairRVASize ALWAYS_DEBUG = PairRVASize.Zero;
-        private static readonly PairRVASize ALWAYS_COPYRIGHT = PairRVASize.Zero;
-        private static readonly PairRVASize ALWAYS_GLOBAL_PTR = PairRVASize.Zero;
-        private static readonly PairRVASize ALWAYS_TLS_TABLE = PairRVASize.Zero;
-        private static readonly PairRVASize ALWAYS_LOADCONFIG_TABLE = PairRVASize.Zero;
-        private static readonly PairRVASize ALWAYS_BOUND_IMPORT = PairRVASize.Zero;
-        //private static readonly PairRVASize ALWAYS_IAT = PairRVASize.Zero;
-        private static readonly PairRVASize ALWAYS_DELAY_IMPORT_DESCRIPTION = PairRVASize.Zero;
-        //private static readonly PairRVASize ALWAYS_CLI_HEADER = PairRVASize.Zero;
-        private static readonly PairRVASize ALWAYS_RESERVED = PairRVASize.Zero;
+        #region Constants
+        public const long OFFSET_EXPORT_TABLE = 96L;
+        public const long OFFSET_IMPORT_TABLE = 104L;
+        public const long OFFSET_RESOURCE_TABLE = 112L;
+        public const long OFFSET_EXEPTION_TABLE = 120L;
+        public const long OFFSET_CERTIFICATE_TABLE = 128L;
+        public const long OFFSET_BASE_RELOCATION_TABLE = 136L;
+        public const long OFFSET_DEBUG = 144L;
+        public const long OFFSET_COPYRIGHT = 152L;
+        public const long OFFSET_GLOBAL_PTR = 160L;
+        public const long OFFSET_TLS_TABLE = 168L;
+        public const long OFFSET_LOADCONFIG_TABLE = 176L;
+        public const long OFFSET_BOUND_IMPORT = 184L;
+        public const long OFFSET_IAT = 192L;
+        public const long OFFSET_DELAY_IMPORT_DESCRIPTION = 200L;
+        public const long OFFSET_CLI_HEADER = 208L;
+        public const long OFFSET_RESERVED = 216L;
+        #endregion
 
-        private static readonly ulong OFFSET_EXPORT_TABLE = 96UL;
-        private static readonly ulong OFFSET_IMPORT_TABLE = 104UL;
-        private static readonly ulong OFFSET_RESOURCE_TABLE = 112UL;
-        private static readonly ulong OFFSET_EXEPTION_TABLE = 120UL;
-        private static readonly ulong OFFSET_CERTIFICATE_TABLE = 128UL;
-        private static readonly ulong OFFSET_BASE_RELOCATION_TABLE = 136UL;
-        private static readonly ulong OFFSET_DEBUG = 144UL;
-        private static readonly ulong OFFSET_COPYRIGHT = 152UL;
-        private static readonly ulong OFFSET_GLOBAL_PTR = 160UL;
-        private static readonly ulong OFFSET_TLS_TABLE = 168UL;
-        private static readonly ulong OFFSET_LOADCONFIG_TABLE = 176UL;
-        private static readonly ulong OFFSET_BOUND_IMPORT = 184UL;
-        private static readonly ulong OFFSET_IAT = 192UL;
-        private static readonly ulong OFFSET_DELAY_IMPORT_DESCRIPTION = 200UL;
-        private static readonly ulong OFFSET_CLI_HEADER = 208UL;
-        private static readonly ulong OFFSET_RESERVED = 216UL;
 
-        private PairRVASize _exportTable;
-        private PairRVASize _importTable;
-        private PairRVASize _resourceTable;
-        private PairRVASize _exeptionTable;
-        private PairRVASize _certificateTable;
-        private PairRVASize _baseRelocationTable;
-        private PairRVASize _debug;
-        private PairRVASize _copyright;
-        private PairRVASize _globalPtr;
-        private PairRVASize _tlsTable;
-        private PairRVASize _loadconfigTable;
-        private PairRVASize _boundImport;
-        private PairRVASize _iat;
-        private PairRVASize _delayImportDescription;
-        private PairRVASize _cliHeader;
-        private PairRVASize _reserved;
 
+
+        #region Fields
+        private readonly PairRVASize _exportTable;
+        private readonly PairRVASize _importTable;
+        private readonly PairRVASize _resourceTable;
+        private readonly PairRVASize _exeptionTable;
+        private readonly PairRVASize _certificateTable;
+        private readonly PairRVASize _baseRelocationTable;
+        private readonly PairRVASize _debug;
+        private readonly PairRVASize _copyright;
+        private readonly PairRVASize _globalPtr;
+        private readonly PairRVASize _tlsTable;
+        private readonly PairRVASize _loadconfigTable;
+        private readonly PairRVASize _boundImport;
+        private readonly PairRVASize _iat;
+        private readonly PairRVASize _delayImportDescription;
+        private readonly PairRVASize _cliHeader;
+        private readonly PairRVASize _reserved;
+        #endregion
+
+
+
+
+
+
+
+
+        #region Constants
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="beginOffset"></param>
+        public FSPEHEaderDataDirectories(byte[] reader, long beginOffset)
+            : base(reader)
+        {
+            this._exportTable = new PairRVASize(reader.getULong(beginOffset + OFFSET_EXPORT_TABLE));
+            Helper.CheckAlways(this._exportTable, PairRVASize.Zero, "ExportTable");
+            this._importTable = new PairRVASize(reader.getULong(beginOffset + OFFSET_IMPORT_TABLE));
+            this._resourceTable = new PairRVASize(reader.getULong(beginOffset + OFFSET_RESOURCE_TABLE));
+            Helper.CheckAlways(this._resourceTable, PairRVASize.Zero, "ResourceTable");
+            this._exeptionTable = new PairRVASize(reader.getULong(beginOffset + OFFSET_EXEPTION_TABLE));
+            Helper.CheckAlways(this._exeptionTable, PairRVASize.Zero, "ExeptionTable");
+            this._certificateTable = new PairRVASize(reader.getULong(beginOffset + OFFSET_CERTIFICATE_TABLE));
+            Helper.CheckAlways(this._certificateTable, PairRVASize.Zero, "CertificateTable");
+            this._baseRelocationTable = new PairRVASize(reader.getULong(beginOffset + OFFSET_BASE_RELOCATION_TABLE));
+            this._debug = new PairRVASize(reader.getULong(beginOffset + OFFSET_DEBUG));
+            Helper.CheckAlways(this._debug, PairRVASize.Zero, "Debug");
+            this._copyright = new PairRVASize(reader.getULong(beginOffset + OFFSET_COPYRIGHT));
+            Helper.CheckAlways(this._copyright, PairRVASize.Zero, "Copyright");
+            this._globalPtr = new PairRVASize(reader.getULong(beginOffset + OFFSET_GLOBAL_PTR));
+            Helper.CheckAlways(this._globalPtr, PairRVASize.Zero, "GlobalPtr");
+            this._tlsTable = new PairRVASize(reader.getULong(beginOffset + OFFSET_TLS_TABLE));
+            Helper.CheckAlways(this._tlsTable, PairRVASize.Zero, "TLSTable");
+            this._loadconfigTable = new PairRVASize(reader.getULong(beginOffset + OFFSET_LOADCONFIG_TABLE));
+            Helper.CheckAlways(this._loadconfigTable, PairRVASize.Zero, "LoadconfigTable");
+            this._boundImport = new PairRVASize(reader.getULong(beginOffset + OFFSET_BOUND_IMPORT));
+            Helper.CheckAlways(this._boundImport, PairRVASize.Zero, "BoundImport");
+            this._iat = new PairRVASize(reader.getULong(beginOffset + OFFSET_IAT));
+            this._delayImportDescription = new PairRVASize(reader.getULong(beginOffset + OFFSET_DELAY_IMPORT_DESCRIPTION));
+            Helper.CheckAlways(this._delayImportDescription, PairRVASize.Zero, "DelayImportDescription");
+            this._cliHeader = new PairRVASize(reader.getULong(beginOffset + OFFSET_CLI_HEADER));
+            this._reserved = new PairRVASize(reader.getULong(beginOffset + OFFSET_RESERVED));
+            Helper.CheckAlways(this._reserved, PairRVASize.Zero, "Reserved");
+            //END_OFFSET = BEGIN_OFFSET + OFFSET_RESERVED + 8;
+        }
+        #endregion
+
+
+
+
+
+
+
+        #region Properties
         /// <summary>
         /// Always 0
         /// </summary>
         public PairRVASize ExportTable
         {
             get { return _exportTable; }
-            private set
-            {
-                Helper.CheckAlways(value ,ALWAYS_EXPORT_TABLE,"ExportTable");
-                _exportTable = value;
-            }
         }
         /// <summary>
         /// RVA and Size of Import Table,
@@ -79,7 +126,6 @@ namespace PEFileFormat.FileFormat.PEHeader
         public PairRVASize ImportTable
         {
             get { return _importTable; }
-            private set { _importTable = value; }
         }
         /// <summary>
         /// Always 0
@@ -87,11 +133,6 @@ namespace PEFileFormat.FileFormat.PEHeader
         public PairRVASize ResourceTable
         {
             get { return _resourceTable; }
-            private set
-            {
-                //Helper.CheckAlways(value ,ALWAYS_RESOURCE_TABLE,"ResourceTable");
-                _resourceTable = value;
-            }
         }
         /// <summary>
         /// Always 0
@@ -99,11 +140,6 @@ namespace PEFileFormat.FileFormat.PEHeader
         public PairRVASize ExeptionTable
         {
             get { return _exeptionTable; }
-            private set
-            {
-                Helper.CheckAlways(value ,ALWAYS_EXEPTION_TABLE,"ExeptionTable");
-                _exeptionTable = value;
-            }
         }
         /// <summary>
         /// Always 0
@@ -111,11 +147,6 @@ namespace PEFileFormat.FileFormat.PEHeader
         public PairRVASize CertificateTable
         {
             get { return _certificateTable; }
-            private set
-            {
-                Helper.CheckAlways(value ,ALWAYS_CERTIFICATE_TABLE,"CertificateTable");
-                _certificateTable = value;
-            }
         }
         /// <summary>
         /// Relocation Table; set to 0 if unused
@@ -123,7 +154,6 @@ namespace PEFileFormat.FileFormat.PEHeader
         public PairRVASize BaseRelocationTable
         {
             get { return _baseRelocationTable; }
-            private set { _baseRelocationTable = value; }
         }
         /// <summary>
         /// Always 0
@@ -131,11 +161,6 @@ namespace PEFileFormat.FileFormat.PEHeader
         public PairRVASize Debug
         {
             get { return _debug; }
-            private set
-            {
-                //Helper.CheckAlways(value ,ALWAYS_DEBUG,"Debug");
-                _debug = value;
-            }
         }
         /// <summary>
         /// Always 0
@@ -143,11 +168,6 @@ namespace PEFileFormat.FileFormat.PEHeader
         public PairRVASize Copyright
         {
             get { return _copyright; }
-            private set
-            {
-                Helper.CheckAlways(value ,ALWAYS_COPYRIGHT,"Copyright");
-                _copyright = value;
-            }
         }
         /// <summary>
         /// Always 0
@@ -155,11 +175,6 @@ namespace PEFileFormat.FileFormat.PEHeader
         public PairRVASize GlobalPtr
         {
             get { return _globalPtr; }
-            private set
-            {
-                Helper.CheckAlways(value ,ALWAYS_GLOBAL_PTR,"GlobalPtr");
-                _globalPtr = value;
-            }
         }
         /// <summary>
         /// Always 0
@@ -167,11 +182,6 @@ namespace PEFileFormat.FileFormat.PEHeader
         public PairRVASize TLSTable
         {
             get { return _tlsTable; }
-            private set
-            {
-                Helper.CheckAlways(value ,ALWAYS_TLS_TABLE,"TLSTable");
-                _tlsTable = value;
-            }
         }
         /// <summary>
         /// Always 0
@@ -179,11 +189,6 @@ namespace PEFileFormat.FileFormat.PEHeader
         public PairRVASize LoadconfigTable
         {
             get { return _loadconfigTable; }
-            private set
-            {
-                Helper.CheckAlways(value ,ALWAYS_LOADCONFIG_TABLE,"LoadconfigTable");
-                _loadconfigTable = value;
-            }
         }
         /// <summary>
         /// Always 0
@@ -191,11 +196,6 @@ namespace PEFileFormat.FileFormat.PEHeader
         public PairRVASize BoundImport
         {
             get { return _boundImport; }
-            private set
-            {
-                Helper.CheckAlways(value ,ALWAYS_BOUND_IMPORT,"BoundImport");
-                _boundImport = value;
-            }
         }
         /// <summary>
         /// RVA and Size of Import Address Table,
@@ -203,7 +203,6 @@ namespace PEFileFormat.FileFormat.PEHeader
         public PairRVASize IAT
         {
             get { return _iat; }
-            private set { _iat = value; }
         }
         /// <summary>
         /// Always 0
@@ -211,11 +210,6 @@ namespace PEFileFormat.FileFormat.PEHeader
         public PairRVASize DelayImportDescription
         {
             get { return _delayImportDescription; }
-            private set
-            {
-                Helper.CheckAlways(value ,ALWAYS_DELAY_IMPORT_DESCRIPTION,"DelayImportDescription");
-                _delayImportDescription = value;
-            }
         }
         /// <summary>
         /// CLI Header with directories for runtime data,
@@ -223,7 +217,6 @@ namespace PEFileFormat.FileFormat.PEHeader
         public PairRVASize CLIHeader
         {
             get { return _cliHeader; }
-            private set { _cliHeader = value; }
         }
         /// <summary>
         /// Always 0
@@ -231,36 +224,7 @@ namespace PEFileFormat.FileFormat.PEHeader
         public PairRVASize Reserved
         {
             get { return _reserved; }
-            private set
-            {
-                Helper.CheckAlways(value ,ALWAYS_RESERVED,"Reserved");
-                _reserved = value;
-            }
         }
-
-        private FSPEHEaderDataDirectories()
-        { }
-
-        public FSPEHEaderDataDirectories(byte[] reader, ulong beginOffset,AFileFormatMediator mediator)
-            :base(reader,beginOffset,mediator)
-        {
-            ExportTable = new PairRVASize(reader.getULong(BEGIN_OFFSET + OFFSET_EXPORT_TABLE));
-            ImportTable = new PairRVASize(reader.getULong(BEGIN_OFFSET + OFFSET_IMPORT_TABLE));
-            ResourceTable = new PairRVASize(reader.getULong(BEGIN_OFFSET + OFFSET_RESOURCE_TABLE));
-            ExeptionTable = new PairRVASize(reader.getULong(BEGIN_OFFSET + OFFSET_EXEPTION_TABLE));
-            CertificateTable = new PairRVASize(reader.getULong(BEGIN_OFFSET + OFFSET_CERTIFICATE_TABLE));
-            BaseRelocationTable = new PairRVASize(reader.getULong(BEGIN_OFFSET + OFFSET_BASE_RELOCATION_TABLE));
-            Debug = new PairRVASize(reader.getULong(BEGIN_OFFSET + OFFSET_DEBUG));
-            Copyright = new PairRVASize(reader.getULong(BEGIN_OFFSET + OFFSET_COPYRIGHT));
-            GlobalPtr = new PairRVASize(reader.getULong(BEGIN_OFFSET + OFFSET_GLOBAL_PTR));
-            TLSTable = new PairRVASize(reader.getULong(BEGIN_OFFSET + OFFSET_TLS_TABLE));
-            LoadconfigTable = new PairRVASize(reader.getULong(BEGIN_OFFSET + OFFSET_LOADCONFIG_TABLE));
-            BoundImport = new PairRVASize(reader.getULong(BEGIN_OFFSET + OFFSET_BOUND_IMPORT));
-            IAT = new PairRVASize(reader.getULong(BEGIN_OFFSET + OFFSET_IAT));
-            DelayImportDescription = new PairRVASize(reader.getULong(BEGIN_OFFSET + OFFSET_DELAY_IMPORT_DESCRIPTION));
-            CLIHeader = new PairRVASize(reader.getULong(BEGIN_OFFSET + OFFSET_CLI_HEADER));
-            Reserved = new PairRVASize(reader.getULong(BEGIN_OFFSET + OFFSET_RESERVED));
-            END_OFFSET = BEGIN_OFFSET + OFFSET_RESERVED + 8;
-        }
+        #endregion
     }
 }

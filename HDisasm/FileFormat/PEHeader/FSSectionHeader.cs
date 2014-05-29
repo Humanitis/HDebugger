@@ -5,38 +5,92 @@
 ///location of the section table is determined by calculating the location of the first byte after the headers.
 ///Each section header has the following format, for a total of 40 bytes per entry:
 #endregion
-using System;
-using PEFileFormat.Extensions;
-
-namespace PEFileFormat.FileFormat
+namespace PEFileFormat
 {
+    using System;
+
+
+
+
+    /// <summary>
+    /// 
+    /// </summary>
     public sealed class FSSectionHeader:AFileStructure
     {
-        private static readonly uint ALWAYS_POINTER_TO_LINENUMBERS = 0;
-        private static readonly ushort ALWAYS_NUMBER_OF_LINENUMBERS = 0;
+        #region Constants
+        private const uint ALWAYS_POINTER_TO_LINENUMBERS = 0;
+        private const ushort ALWAYS_NUMBER_OF_LINENUMBERS = 0;
 
-        private static readonly ulong OFFSET_NAME = 0UL;
-        private static readonly ulong OFFSET_VIRTUAL_SIZE = 8UL;
-        private static readonly ulong OFFSET_VIRTUAL_ADDRESS = 12UL;
-        private static readonly ulong OFFSET_SIZE_OF_RAW_DATA = 16UL;
-        private static readonly ulong OFFSET_POINTER_TO_RAW_DATA = 20UL;
-        private static readonly ulong OFFSET_POINTER_TO_RELOCATIONS = 24UL;
-        private static readonly ulong OFFSET_POINTER_TO_LINENUMBERS = 28UL;
-        private static readonly ulong OFFSET_NUMBER_OF_RELOCATIONS = 32UL;
-        private static readonly ulong OFFSET_NUMBER_OF_LINENUMBERS = 34UL;
-        private static readonly ulong OFFSET_CHARACTERISTICS = 36UL;
+        public const long OFFSET_NAME = 0L;
+        public const long OFFSET_VIRTUAL_SIZE = 8L;
+        public const long OFFSET_VIRTUAL_ADDRESS = 12L;
+        public const long OFFSET_SIZE_OF_RAW_DATA = 16L;
+        public const long OFFSET_POINTER_TO_RAW_DATA = 20L;
+        public const long OFFSET_POINTER_TO_RELOCATIONS = 24L;
+        public const long OFFSET_POINTER_TO_LINENUMBERS = 28L;
+        public const long OFFSET_NUMBER_OF_RELOCATIONS = 32L;
+        public const long OFFSET_NUMBER_OF_LINENUMBERS = 34L;
+        public const long OFFSET_CHARACTERISTICS = 36L;
+        #endregion
 
-        private string _name;
-        private uint _virtualSize;
-        private uint _virtualAddress;
-        private uint _sizeOfRawData;
-        private uint _pointerToRawData;
-        private uint _pointerToRelocationsRVA;
-        private uint _pointerToLinenumbers;
-        private ushort _numberOfRelocations;
-        private ushort _numberOfLinenumbers;
-        private CharacteristicFlag _characteristics;
 
+
+
+
+
+
+        #region Fields
+        private readonly string _name;
+        private readonly uint _virtualSize;
+        private readonly uint _virtualAddress;
+        private readonly uint _sizeOfRawData;
+        private readonly uint _pointerToRawData;
+        private readonly uint _pointerToRelocationsRVA;
+        private readonly uint _pointerToLinenumbers;
+        private readonly ushort _numberOfRelocations;
+        private readonly ushort _numberOfLinenumbers;
+        private readonly CharacteristicFlag _characteristics;
+        #endregion
+
+
+
+
+
+
+
+        #region Constructors
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="beginOffset"></param>
+        public FSSectionHeader(byte[] reader, long beginOffset)
+            : base(reader)
+        {
+            this._name = reader.getString(beginOffset + OFFSET_NAME, OFFSET_VIRTUAL_SIZE - OFFSET_NAME);
+            this._virtualSize = reader.getUInt(beginOffset + OFFSET_VIRTUAL_SIZE);
+            this._virtualAddress = reader.getUInt(beginOffset + OFFSET_VIRTUAL_ADDRESS);
+            this._sizeOfRawData = reader.getUInt(beginOffset + OFFSET_SIZE_OF_RAW_DATA);
+            this._pointerToRawData = reader.getUInt(beginOffset + OFFSET_POINTER_TO_RAW_DATA);
+            this._pointerToRelocationsRVA = reader.getUInt(beginOffset + OFFSET_POINTER_TO_RELOCATIONS);
+            this._pointerToLinenumbers = reader.getUInt(beginOffset + OFFSET_POINTER_TO_LINENUMBERS);
+            Helper.CheckAlways(this._pointerToLinenumbers, ALWAYS_POINTER_TO_LINENUMBERS, "PointerToLinenumbers");
+            this._numberOfRelocations = reader.getUShort(beginOffset + OFFSET_NUMBER_OF_RELOCATIONS);
+            this._numberOfLinenumbers = reader.getUShort(beginOffset + OFFSET_NUMBER_OF_LINENUMBERS);
+            Helper.CheckAlways(this._numberOfLinenumbers, ALWAYS_NUMBER_OF_LINENUMBERS, "NumberOfLinenumbers");
+            this._characteristics = (CharacteristicFlag)reader.getUInt(beginOffset + OFFSET_CHARACTERISTICS);
+            //END_OFFSET = BEGIN_OFFSET + OFFSET_CHARACTERISTICS + 4;
+        }
+        #endregion
+
+
+
+
+
+
+
+
+        #region Properties
         /// <summary>
         /// An 8-byte, null-padded ASCII string. There is no terminating null
         ///if the string is exactly eight characters long.
@@ -44,7 +98,6 @@ namespace PEFileFormat.FileFormat
         public string Name
         {
             get { return _name; }
-            set { _name = value; }
         }
         /// <summary>
         /// Total size of the section in bytes. If this value is greater than
@@ -53,7 +106,6 @@ namespace PEFileFormat.FileFormat
         public uint VirtualSize
         {
             get { return _virtualSize; }
-            private set { _virtualSize = value; }
         }
         /// <summary>
         /// For executable images this is the address of the first byte of the
@@ -62,7 +114,6 @@ namespace PEFileFormat.FileFormat
         public uint VirtualAddress
         {
             get { return _virtualAddress; }
-            private set { _virtualAddress = value; }
         }
         /// <summary>
         /// Size of the initialized data on disk in bytes, shall be a multiple of
@@ -75,7 +126,6 @@ namespace PEFileFormat.FileFormat
         public uint SizeOfRawData
         {
             get { return _sizeOfRawData; }
-            private set { _sizeOfRawData = value; }
         }
         /// <summary>
         /// Offset of section’s first page within the PE file. This shall be a
@@ -85,7 +135,6 @@ namespace PEFileFormat.FileFormat
         public uint PointerToRawData
         {
             get { return _pointerToRawData; }
-            private set { _pointerToRawData = value; }
         }
         /// <summary>
         /// RVA of Relocation section.
@@ -93,7 +142,6 @@ namespace PEFileFormat.FileFormat
         public uint PointerToRelocationsRVA
         {
             get { return _pointerToRelocationsRVA; }
-            private set { _pointerToRelocationsRVA = value; }
         }
         /// <summary>
         /// Always 0
@@ -101,11 +149,6 @@ namespace PEFileFormat.FileFormat
         public uint PointerToLinenumbers
         {
             get { return _pointerToLinenumbers; }
-            private set
-            {
-                Helper.CheckAlways(value, ALWAYS_POINTER_TO_LINENUMBERS, "PointerToLinenumbers");
-                _pointerToLinenumbers = value;
-            }
         }
         /// <summary>
         /// Number of relocations, set to 0 if unused.
@@ -113,7 +156,6 @@ namespace PEFileFormat.FileFormat
         public ushort NumberOfRelocations
         {
             get { return _numberOfRelocations; }
-            private set { _numberOfRelocations = value; }
         }
         /// <summary>
         /// Always 0
@@ -121,11 +163,6 @@ namespace PEFileFormat.FileFormat
         public ushort NumberOfLinenumbers
         {
             get { return _numberOfLinenumbers; }
-            private set
-            {
-                Helper.CheckAlways(value, ALWAYS_NUMBER_OF_LINENUMBERS, "NumberOfLinenumbers");
-                _numberOfLinenumbers = value;
-            }
         }
         /// <summary>
         /// Flags describing section’s characteristics, see below.
@@ -133,27 +170,16 @@ namespace PEFileFormat.FileFormat
         public CharacteristicFlag Characteristics
         {
             get { return _characteristics; }
-            private set { _characteristics = value; }
         }
+        #endregion
 
 
-        private FSSectionHeader()
-        { }
-        public FSSectionHeader(byte[] reader, ulong beginOffset,AFileFormatMediator mediator)
-            :base(reader,beginOffset,mediator)
-        {
-            Name = reader.getString(BEGIN_OFFSET + OFFSET_NAME, OFFSET_VIRTUAL_SIZE - OFFSET_NAME);
-            VirtualSize = reader.getUInt(BEGIN_OFFSET + OFFSET_VIRTUAL_SIZE);
-            VirtualAddress = reader.getUInt(BEGIN_OFFSET + OFFSET_VIRTUAL_ADDRESS);
-            SizeOfRawData = reader.getUInt(BEGIN_OFFSET + OFFSET_SIZE_OF_RAW_DATA);
-            PointerToRawData = reader.getUInt(BEGIN_OFFSET + OFFSET_POINTER_TO_RAW_DATA);
-            PointerToRelocationsRVA = reader.getUInt(BEGIN_OFFSET + OFFSET_POINTER_TO_RELOCATIONS);
-            PointerToLinenumbers = reader.getUInt(BEGIN_OFFSET + OFFSET_POINTER_TO_LINENUMBERS);
-            NumberOfRelocations = reader.getUShort(BEGIN_OFFSET + OFFSET_NUMBER_OF_RELOCATIONS);
-            NumberOfLinenumbers = reader.getUShort(BEGIN_OFFSET + OFFSET_NUMBER_OF_LINENUMBERS);
-            Characteristics = (CharacteristicFlag)reader.getUInt(BEGIN_OFFSET + OFFSET_CHARACTERISTICS);
-            END_OFFSET = BEGIN_OFFSET + OFFSET_CHARACTERISTICS + 4;
-        }
+
+
+
+
+
+
 
         #region inner types
         [Flags]
