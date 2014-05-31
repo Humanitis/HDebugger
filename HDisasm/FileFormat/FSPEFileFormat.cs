@@ -1,6 +1,7 @@
 ﻿namespace PEFileFormat
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
 
 
@@ -16,7 +17,7 @@
         #region Fields
         private readonly Stream _reader;
         private readonly FSPEHeader _peHeader;
-        private readonly FSImportTable _importTable;
+        private readonly List<FSImportTableEntry> _importTable;
         private readonly FSIAT _iat;//import address table
         private readonly FSIAT _ilt;//import lookup table
         private readonly FSHintNameTable _hintNameTable;
@@ -37,7 +38,8 @@
         /// <summary>
         /// 
         /// </summary>
-        private FSPEFileFormat() {
+        private FSPEFileFormat()
+        {
             throw new NotImplementedException();
         }
         /// <summary>
@@ -52,11 +54,20 @@
             this._reader.Read(this._bufferArray, 0, (int)this._reader.Length);
 
             //PEHeaders
-            this._peHeader = new FSPEHeader(BufferByte, 0);
+            this._peHeader = new FSPEHeader(this._bufferArray, 0);
 
             long address = PEHeader.TranslateRVA(PEHeader.PEOptionalHeader.PEHEaderDataDirectories.ImportTable.RVA);
-            ImportTable = new FSImportTable(BufferByte, address);
-            //ImportTable.Name = BufferByte.getStringWithNullEnd(PEHeader.TranslateRVA(ImportTable.NameRVA));
+            this._importTable = new List<FSImportTableEntry>();
+            while (true)
+            {
+                //End of table shall be filled with zeros
+                if (address + 20 <= this._bufferArray.LongLength
+                   || (this._bufferArray.getLong(address) == 0
+                        && this._bufferArray.getLong(address + 8) == 0
+                        && this._bufferArray.getInt(address + 16) == 0))
+                    break;
+                FSImportTableEntry itEntry = new FSImportTableEntry(this._peHeader, this._bufferArray, address);
+            }
 
             address = PEHeader.TranslateRVA(PEHeader.PEOptionalHeader.PEHEaderDataDirectories.CLIHeader.RVA);
             CLIHeader = new FSCLIHeader(BufferByte, address, _mediator);
@@ -124,7 +135,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public FSImportTable ImportTable
+        public IList<FSImportTableEntry> ImportTable
         {
             get { return _importTable; }
         }

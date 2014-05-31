@@ -97,9 +97,9 @@
     <Compile Include="FileFormat\CLIData\MetaData\StreamTables\TypeMetaDataTag.cs" />
     <Compile Include="FileFormat\CLIData\MetaData\StreamTables\TypeOrMethodDefTag.cs" />
     <Compile Include="FileFormat\CLIHeader\FSCLIHeader.cs" />
-    <Compile Include="FileFormat\FSHintNameTable.cs" />
+    <Compile Include="FileFormat\FSHintNameTableEntry.cs" />
     <Compile Include="FileFormat\FSIAT.cs" />
-    <Compile Include="FileFormat\FSImportTable.cs" />
+    <Compile Include="FileFormat\FSImportTableEntry.cs" />
     <Compile Include="FileFormat\FSPEFileFormat.cs" />
     <Compile Include="FileFormat\FSRelocations.cs" />
     <Compile Include="FileFormat\Helper.cs" />

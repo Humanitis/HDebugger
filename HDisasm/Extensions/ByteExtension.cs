@@ -116,7 +116,7 @@
         {
             if (offset < 0 || size < 0 || count > size || count < 0)
                 throw new ArgumentException();
-            if ((arr.LongLength <= offset - count)
+            if (arr.LongLength <= offset - count)
                 throw new ArgumentOutOfRangeException();
             ulong result = 0;
             while (count-- != 0)
